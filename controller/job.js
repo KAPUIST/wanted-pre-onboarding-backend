@@ -20,5 +20,20 @@ exports.getJobs = (req, res, next) => {
 };
 exports.AddJob = (req, res, next) => {
   const { companyId, position, reward, detail, technology } = req.body;
-  Job.create({});
+
+  Job.create({
+    companyId,
+    position,
+    reward,
+    detail,
+    technology,
+  })
+    .then((result) => {
+      console.log("created jobItem");
+      res.status(201).json({ message: "Success!" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: err.message || "Some Error" });
+    });
 };
