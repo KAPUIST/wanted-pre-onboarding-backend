@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
-
+const Companies = require("./companies");
 const JobItems = sequelize.define("jobItems", {
   id: {
     type: Sequelize.INTEGER,
@@ -12,6 +12,7 @@ const JobItems = sequelize.define("jobItems", {
   companyId: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    foreignKey: true,
   },
   position: { type: Sequelize.STRING, allowNull: false },
   reward: {
