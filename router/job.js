@@ -7,9 +7,9 @@ router.get("/jobs", jobController.getJobs);
 //채용공고 등록하기
 router.post("/job", jobController.AddJob);
 //채용공고 수정하기
-router.put("/job");
+router.put("/job", jobController.editJob);
 //채용공고 삭제하기
-router.delete("/job/:jobId");
+router.delete("/job/:jobItemId", jobController.deleteJob);
 //채용공고 검색하기(Optional)
 
 module.exports = router;
