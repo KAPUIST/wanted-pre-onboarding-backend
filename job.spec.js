@@ -16,18 +16,11 @@ beforeAll(async () => {
     });
 });
 describe("Get JobItem Test", () => {
-  it("Get JobItem", (done) => {
-    request(app)
+  it("Get JobItem", async () => {
+    let res = await request(app)
       .get("/api/v1/jobs")
-      .expect("Content-Type", "application/json; charset=utf-8")
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          done(err);
-        } else {
-          done();
-        }
-      });
+      .expect("Content-Type", "application/json; charset=utf-8");
+    expect(res.statusCode).toEqual(200);
   });
 });
 describe("Post And Delete JobItem Test", () => {
