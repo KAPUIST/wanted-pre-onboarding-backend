@@ -67,51 +67,51 @@ npx sequelize db:seed:all
 
 ### request
 
-<img src="docs/image/공고생성_request.png" width="600" height="400" />
+<img src="docs/image/공고생성_request.png" width="1000" height="400" />
 
 ### response
 
-<img src="docs/image/공고생성_response.png" width="600" height="400" />
+<img src="docs/image/공고생성_response.png" width="1000" height="400" />
 
 ### 2. 채용공고를 수정합니다.
 
 ### request
 
-<img src="docs/image/공고수정_request.png" width="600" height="400" />
+<img src="docs/image/공고수정_request.png" width="1000" height="400" />
 
 ### response
 
-<img src="docs/image/공고수정_request.png" width="600" height="400" />
+<img src="docs/image/공고수정_request.png" width="1000" height="400" />
 
 ### 3. 채용공고를 삭제합니다.
 
 ### request
 
-<img src="docs/image/공고삭제_request.png" width="600" height="400" />
+<img src="docs/image/공고삭제_request.png" width="1000" height="400" />
 
 ### response
 
-<img src="docs/image/공고삭제_request.png" width="600" height="400" />
+<img src="docs/image/공고삭제_request.png" width="1000" height="400" />
 
 ### 4. 모든 채용공고를 가져옵니다.
 
 ### request
 
-<img src="docs/image/공고조회_request.png" width="600" height="400" />
+<img src="docs/image/공고조회_request.png" width="1000" height="400" />
 
 ### response
 
-<img src="docs/image/공고조회_request.png" width="600" height="400" />
+<img src="docs/image/공고조회_request.png" width="1000" height="400" />
 
 ### 5. 채용공고 상세보기
 
 ### request
 
-<img src="docs/image/공고상세보기_request.png" width="600" height="400" />
+<img src="docs/image/공고상세보기_request.png" width="1000" height="400" />
 
 ### response
 
-## <img src="docs/image/공고상세보기_request.png" width="600" height="400" />
+## <img src="docs/image/공고상세보기_request.png" width="1000" height="400" />
 
 # 개발 프로세스
 
