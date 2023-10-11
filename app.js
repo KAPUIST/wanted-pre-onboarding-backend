@@ -2,12 +2,11 @@ const express = require("express");
 const sequelize = require("./util/database");
 const dotenv = require("dotenv");
 const app = express();
-const bodyParser = require("body-parser");
 const { errorMiddleware } = require("./middleware/errorMiddleware");
 const JobItem = require("./models/job-items");
 const Companies = require("./models/companies");
 dotenv.config();
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.SERVER_PORT || 8080;
 const jobs = require("./router/job");
 
 app.use(express.json());

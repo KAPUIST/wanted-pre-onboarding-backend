@@ -3,52 +3,23 @@ const Companies = require("../models/companies");
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 exports.getJobs = async (req, res, next) => {
-  if (req.query.search) return next();
   await Job.findAll({
     include: [
       { model: Companies, attributes: ["country", "region", "companyName"] },
     ],
+    attributes: { exclude: ["createdAt", "updatedAt"] },
   })
     .then((jobs) => {
-      if (jobs.length === 0)
-        return res.status(200).json({ message: "has no data" });
+      if (jobs.length === 0) {
+        next({ status: 200, success: true, message: "Has no data" });
+        return;
+      }
 
       res.status(200).json(jobs);
     })
     .catch((err) => {
-      res.status(500).json({
-        message: err.message || "Some Error",
-      });
-    });
-};
-exports.searchJobs = async (req, res, next) => {
-  let search = req.query.search;
-  let companyId = await Companies.findOne({
-    attributes: ["id"],
-    where: { companyName: search },
-    raw: true,
-  });
-  if (companyId === null)
-    return res.status(500).json({ message: "has no jobItems" });
-
-  Job.findAll({
-    include: { model: Companies, attributes: ["country", "region"] },
-    where: { companyId: companyId.id },
-    attributes: [
-      "id",
-      "companyId",
-      "position",
-      "reward",
-      "detail",
-      "technology",
-    ],
-  })
-    .then((result) => {
-      console.log("success!");
-      res.status(200).json(result);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message || "Some Error" });
+      console.log(err);
+      next({ status: 400, message: "SERVER_ERROR" });
     });
 };
 exports.getDetailJobs = async (req, res, next) => {
@@ -56,14 +27,7 @@ exports.getDetailJobs = async (req, res, next) => {
   const detailJob = await Job.findOne({
     include: { model: Companies, attributes: ["country", "region"] },
     where: { id: jobItemId },
-    attributes: [
-      "id",
-      "companyId",
-      "position",
-      "reward",
-      "detail",
-      "technology",
-    ],
+    attributes: { exclude: ["createdAt", "updatedAt"] },
     raw: true,
   })
     .then((result) => {
@@ -72,15 +36,12 @@ exports.getDetailJobs = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: err.message || "Some ERROR" });
+      next({ status: 400, message: "SERVER_ERROR" });
     });
-  if (detailJob === null)
-    return res
-      .status(400)
-      .json({
-        message: "채용공고를 찾을수없습니다.",
-        errorCode: "JOB_NOT_FOUND",
-      });
+  if (detailJob === null) {
+    next({ status: 400, message: "JOB_NOT_FOUND" });
+    return;
+  }
   await Job.findAll({
     where: { companyId: detailJob.companyId, id: { [Op.notIn]: [jobItemId] } },
     raw: true,
@@ -97,12 +58,16 @@ exports.getDetailJobs = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: err.message || "Some ERROR" });
+      next({ status: 400, message: "SERVER_ERROR" });
     });
 };
 exports.AddJob = async (req, res, next) => {
   const { companyId, position, reward, detail, technology } = req.body;
-
+  if (!companyId || !position || !reward || !detail || !technology) {
+    console.log(req.body);
+    next({ status: 400, message: "Required field" });
+    return;
+  }
   await Job.create({
     companyId,
     position,
@@ -111,18 +76,24 @@ exports.AddJob = async (req, res, next) => {
     technology,
   })
     .then((result) => {
-      console.log("created jobItem");
-      res.status(201).json({ message: "Success!" });
+      res.status(201).json({
+        message: "Success!",
+        data: result.dataValues,
+      });
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: err.message || "Some Error" });
+      console.log(err.message);
+      next({ status: 400, message: "SERVER_ERROR" });
     });
 };
 
 exports.editJob = async (req, res, next) => {
   const { jobItemId, position, reward, detail, technology } = req.body;
-
+  if (!jobItemId || !position || !reward || !detail || !technology) {
+    console.log(req.body);
+    next({ status: 400, message: "Required field" });
+    return;
+  }
   await Job.update(
     {
       position,
@@ -133,24 +104,44 @@ exports.editJob = async (req, res, next) => {
     { where: { id: jobItemId } }
   )
     .then((result) => {
-      console.log("Update jobItem");
-      res.status(200).json({ message: "Success!" });
+      if (result[0] === 0) {
+        next({ status: 400, message: "UPDATE_FAILED" });
+        return;
+      }
+
+      res.status(200).json({
+        message: "Success!",
+        data: {
+          position,
+          reward,
+          detail,
+          technology,
+        },
+      });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: err.message || "Some Error" });
+      next({ status: 400, message: "SERVER_ERROR" });
     });
 };
 
 exports.deleteJob = async (req, res, next) => {
   const jobItemId = req.params.jobItemId;
+  if (!jobItemId) {
+    console.log(jobItemId);
+    next({ status: 400, message: "Required field" });
+    return;
+  }
   await Job.destroy({ where: { id: jobItemId } })
     .then((result) => {
-      console.log("delete jobItem");
+      if (result === 0) {
+        next({ status: 400, message: "DELETE_FAILED" });
+        return;
+      }
       res.status(200).json({ message: "Success!" });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: err.message || "Some Error" });
+      next({ status: 400, message: "SERVER_ERROR" });
     });
 };

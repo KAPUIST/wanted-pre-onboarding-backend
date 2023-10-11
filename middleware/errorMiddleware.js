@@ -1,8 +1,9 @@
 exports.errorMiddleware = (err, req, res, next) => {
+  console.log(err);
   const defaultErr = {
-    statusCode: 404,
-    success: "failed",
-    message: err.message || "Some Error",
+    statusCode: err.status || 404,
+    success: err.success || "failed",
+    message: err.message || "Error",
   };
 
   if (err?.name === "ValidationError") {
