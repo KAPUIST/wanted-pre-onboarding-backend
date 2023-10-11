@@ -64,7 +64,6 @@ exports.getDetailJobs = async (req, res, next) => {
 exports.AddJob = async (req, res, next) => {
   const { companyId, position, reward, detail, technology } = req.body;
   if (!companyId || !position || !reward || !detail || !technology) {
-    console.log(req.body);
     next({ status: 400, message: "Required field" });
     return;
   }
