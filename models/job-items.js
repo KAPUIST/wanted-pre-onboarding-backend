@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
-const Companies = require("./companies");
 const JobItems = sequelize.define("jobItems", {
   id: {
     type: Sequelize.INTEGER,

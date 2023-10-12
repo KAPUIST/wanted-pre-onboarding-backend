@@ -62,6 +62,28 @@ describe("Get Job Item Detail", () => {
     expect(res.body.anotherJobs).toHaveLength(1);
   });
 });
+describe("Apply Job", () => {
+  let applyJobId;
+  const payload = {
+    jobItemId: 1,
+    userId: 1,
+  };
+  it("Apply Job", async () => {
+    let res = await request(app).post("/api/v1/applyJob").send(payload);
+    expect(res.statusCode).toEqual(201);
+
+    applyJobId = res.body.data.id;
+  });
+  it("Duplicated Apply Job", async () => {
+    let res = await request(app).post("/api/v1/applyJob").send(payload);
+    expect(res.statusCode).toEqual(400);
+  });
+
+  it("Delete Apply Job", async () => {
+    let res = await request(app).delete(`/api/v1/applyJob/${applyJobId}`);
+    expect(res.statusCode).toEqual(200);
+  });
+});
 
 afterAll(async () => {
   /**

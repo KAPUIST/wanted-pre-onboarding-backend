@@ -8,7 +8,13 @@
 
 # 목차
 
-### [1. 기술 스택](#-1-기술-스택)
+### [1. 기술 스택](#기술-스택)
+
+### [2. 어플리케이션 실행방법 및 환경변수](#어플리케이션-실행방법-및-환경변수)
+
+### [3. API Docs](#API-Docs)
+
+### [4. 개발 프로세스](#개발-프로세스)
 
 ---
 
@@ -112,6 +118,18 @@ npx sequelize db:seed:all
 ### response
 
 ## <img src="docs/image/공고상세보기_response.png" width="1000" height="400" />
+
+### 6.채용공고 지원하기
+
+### request
+
+<img src="docs/image/공고지원하기_request.png" width="1000" height="400" />
+
+### response
+
+## <img src="docs/image/공고지원하기_response.png" width="1000" height="400" />
+
+---
 
 # 개발 프로세스
 

@@ -7,7 +7,7 @@ router.get("/jobs", jobController.getJobs);
 //채용공고 상세보기(Optional)
 router.get("/job/:jobItemId", jobController.getDetailJobs);
 //채용공고 등록하기
-router.post("/job", jobController.AddJob);
+router.post("/job", jobController.addJob);
 //채용공고 수정하기
 router.put("/job", jobController.editJob);
 //채용공고 삭제하기
