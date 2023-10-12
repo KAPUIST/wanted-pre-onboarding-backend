@@ -4,7 +4,7 @@ const sequelize = require("./util/database");
 dotenv.config();
 const PORT = process.env.SERVER_PORT || 8080;
 sequelize
-  .sync()
+  .sync({ force: false })
   .then((result) => {
     console.log("Database Connected");
     app.listen(PORT, () => {
