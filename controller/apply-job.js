@@ -1,9 +1,4 @@
-const Job = require("../models/job-items");
-const Companies = require("../models/companies");
-const User = require("../models/user");
 const ApplyJob = require("../models/apply-job");
-const sequelize = require("sequelize");
-const Op = sequelize.Op;
 
 exports.applyJob = async (req, res, next) => {
   const { jobItemId, userId } = req.body;
@@ -11,7 +6,6 @@ exports.applyJob = async (req, res, next) => {
     next({ status: 400, message: "Required field" });
     return;
   }
-  //유저가 이미 지원한 공고인지?
 
   let checkDuplicate = await ApplyJob.findOne({
     where: { jobItemId, userId },
@@ -35,7 +29,7 @@ exports.applyJob = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err.message);
-      next({ status: 400, message: "SERVER_ERROR" });
+      next(err);
     });
 };
 

@@ -3,7 +3,7 @@ const app = express();
 const { errorMiddleware } = require("./middleware/errorMiddleware");
 const JobItem = require("./models/job-items");
 const Companies = require("./models/companies");
-const User = require("./models/user");
+const Users = require("./models/users");
 const ApplyJob = require("./models/apply-job");
 
 const jobs = require("./router/job");
@@ -20,8 +20,8 @@ app.use(errorMiddleware);
 Companies.hasMany(JobItem, { foreignKey: "companyId", sourceKey: "id" });
 JobItem.belongsTo(Companies, { foreignKey: "companyId", targetKey: "id" });
 JobItem.hasMany(ApplyJob, { foreignKey: "jobItemId", sourceKey: "id" });
-User.hasMany(ApplyJob, { foreignKey: "userId", sourceKey: "id" });
+Users.hasMany(ApplyJob, { foreignKey: "userId", sourceKey: "id" });
 ApplyJob.belongsTo(JobItem, { foreignKey: "jobItemId", targetKey: "id" });
-ApplyJob.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
+ApplyJob.belongsTo(Users, { foreignKey: "userId", targetKey: "id" });
 
 module.exports = app;
