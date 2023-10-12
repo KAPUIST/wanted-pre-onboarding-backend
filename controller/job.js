@@ -60,6 +60,45 @@ exports.getDetailJobs = async (req, res, next) => {
       next({ status: 400, message: "SERVER_ERROR" });
     });
 };
+exports.getSearchJobs = async (req, res, next) => {
+  let keyword = req.query.q;
+  if (keyword.length < 2) {
+    next({
+      status: 400,
+      success: true,
+      message: "SEARCH_WORD_MORE_THAN_2_CHARACTER",
+    });
+    return;
+  }
+  keyword = `%${req.query.q.replace(/ /gi, "%")}%`;
+
+  await Job.findAll({
+    include: [
+      {
+        model: Companies,
+        as: "company",
+        attributes: ["companyName", "region", "country"],
+      },
+    ],
+    where: {
+      [Op.or]: [
+        { position: { [Op.like]: "%" + keyword + "%" } },
+        { detail: { [Op.like]: "%" + keyword + "%" } },
+        { technology: { [Op.like]: "%" + keyword + "%" } },
+        { "$company.region$": { [Op.like]: "%" + keyword + "%" } },
+        { "$company.companyName$": { [Op.like]: "%" + keyword + "%" } },
+      ],
+    },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  })
+    .then((jobs) => {
+      res.status(200).json(jobs);
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
+};
 exports.addJob = async (req, res, next) => {
   const { companyId, position, reward, detail, technology } = req.body;
 
