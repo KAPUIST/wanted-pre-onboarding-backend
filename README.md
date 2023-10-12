@@ -10,11 +10,13 @@
 
 ### [1. 기술 스택](#기술-스택)
 
-### [2. 어플리케이션 실행방법 및 환경변수](#어플리케이션-실행방법-및-환경변수)
+### [2. 데이터베이스 ERD](#데이터베이스-ERD)
 
-### [3. API Docs](#API-Docs)
+### [3. 어플리케이션 실행방법 및 환경변수](#어플리케이션-실행방법-및-환경변수)
 
-### [4. 개발 프로세스](#개발-프로세스)
+### [4. API Docs](#API-Docs)
+
+### [5. 개발 프로세스](#개발-프로세스)
 
 ---
 
@@ -24,6 +26,12 @@
 ![MySQL](https://img.shields.io/badge/MySQL-8.1.0-003545?logo=mysql&style=flat)
 ![Express](https://img.shields.io/badge/Express-4.18.2-003545?logo=Express&style=flat)
 ![Sequelize](https://img.shields.io/badge/Sequelize-6.33.0-003545?logo=Sequelize&style=flat)
+
+---
+
+# 데이터베이스 ERD
+
+## <img src="docs/image/데이터베이스_ERD.png" width="1000" height="400" />
 
 ---
 
@@ -61,6 +69,12 @@ npm start
 
 ```
 npx sequelize db:seed:all
+```
+
+6.Test
+
+```
+npm run test
 ```
 
 ---
@@ -123,20 +137,35 @@ npx sequelize db:seed:all
 
 ### request
 
-<img src="docs/image/공고지원하기_request.png" width="1000" height="400" />
+<img src="docs/image/공고지원_request.png" width="1000" height="400" />
 
 ### response
 
-## <img src="docs/image/공고지원하기_response.png" width="1000" height="400" />
+## <img src="docs/image/공고지원_response.png" width="1000" height="400" />
 
 ---
 
 # 개발 프로세스
 
-1. [x] 채용공고 등록 기능
+1. [x] 채용공고 등록 기능 (POST /api/v1/job)
+
+- body에 필요한 내용
+
+```
+{
+   "companyId": INTEGER,
+   "position":STRING,
+   "reward": INTEGER,
+   "detail": STRING,
+   "technology": STRING
+   }
+```
+
+- 공고생성에 실패할경우
+
 2. [x] 채용공고 수정 기능
 3. [x] 채용공고 삭제 기능
 4. [x] 채용공고 목록 가져오기 기능
 5. [ ] 채용공고 검색 기능 구현 (Optional)
 6. [x] 채용 상세 페이지 가져오기
-7. [ ] 채용공고에 지원 기능 (Optional)
+7. [x] 채용공고에 지원 기능 (Optional)
