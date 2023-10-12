@@ -119,6 +119,18 @@ npx sequelize db:seed:all
 
 ## <img src="docs/image/공고상세보기_response.png" width="1000" height="400" />
 
+### 6.채용공고 지원하기
+
+### request
+
+<img src="docs/image/공고지원하기_request.png" width="1000" height="400" />
+
+### response
+
+## <img src="docs/image/공고지원하기_response.png" width="1000" height="400" />
+
+---
+
 # 개발 프로세스
 
 1. [x] 채용공고 등록 기능

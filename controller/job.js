@@ -49,7 +49,6 @@ exports.getDetailJobs = async (req, res, next) => {
   })
     .then((result) => {
       let jobKey = [];
-      console.log(result.length);
       if (result.length > 0) {
         jobKey = Object.values(...result);
       }
@@ -61,7 +60,7 @@ exports.getDetailJobs = async (req, res, next) => {
       next({ status: 400, message: "SERVER_ERROR" });
     });
 };
-exports.AddJob = async (req, res, next) => {
+exports.addJob = async (req, res, next) => {
   const { companyId, position, reward, detail, technology } = req.body;
   if (!companyId || !position || !reward || !detail || !technology) {
     next({ status: 400, message: "Required field" });
@@ -126,7 +125,6 @@ exports.editJob = async (req, res, next) => {
 exports.deleteJob = async (req, res, next) => {
   const jobItemId = req.params.jobItemId;
   if (!jobItemId) {
-    console.log(jobItemId);
     next({ status: 400, message: "Required field" });
     return;
   }
