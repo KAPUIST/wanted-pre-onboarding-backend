@@ -2,7 +2,9 @@
 
 ---
 
-## 지원자 : 손태권
+### 지원자 : 손태권
+
+### 이메일 : thsxornjs12@gmail.com
 
 ---
 
@@ -71,10 +73,10 @@ SERVER_PORT={서버실행 포트입니다.}     default: 8080
 npx sequelize db:create
 ```
 
-4.어플리케이션을 실행합니다.
+4.Table을 생성합니다.
 
 ```
-npm start
+npx sequelize db:migrate
 ```
 
 5.Mysql Seed를 추가합니다
@@ -83,7 +85,13 @@ npm start
 npx sequelize db:seed:all
 ```
 
-6.Test
+6.서버를 실행합니다
+
+```
+npm run start
+```
+
+7.Test
 
 ```
 npm run test

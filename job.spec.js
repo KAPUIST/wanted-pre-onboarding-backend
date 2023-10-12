@@ -65,8 +65,8 @@ describe("Get Job Item Detail", () => {
 describe("Apply Job", () => {
   let applyJobId;
   const payload = {
-    jobItemId: 1,
-    userId: 1,
+    jobItemId: 2,
+    userId: 2,
   };
   it("Apply Job", async () => {
     let res = await request(app).post("/api/v1/applyJob").send(payload);
