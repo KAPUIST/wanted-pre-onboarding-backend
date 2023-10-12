@@ -39,7 +39,7 @@
 4. [x] 채용공고 목록 가져오기 기능 (GET /api/v1/jobs)
 5. [x] 채용공고 상세보기 기능 (Optional) (GET /api/v1/job/:jobItemId)
 6. [x] 채용공고에 지원 기능 (Optional) (POST /api/v1/applyJob)
-7. [x] 채용공고 검색 기능 구현 (Optional) (GET /api/vi/jos/search?q={value})
+7. [x] 채용공고 검색 기능 구현 (Optional) (GET /api/vi/jobs/search?q={value})
 
 ---
 
