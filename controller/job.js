@@ -72,7 +72,7 @@ exports.addJob = async (req, res, next) => {
   })
     .then((result) => {
       res.status(201).json({
-        message: "Success!",
+        success: true,
         data: result.dataValues,
       });
     })
