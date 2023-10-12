@@ -11,7 +11,7 @@ exports.getJobs = async (req, res, next) => {
   })
     .then((jobs) => {
       if (jobs.length === 0) {
-        next({ status: 200, success: true, message: "Has no data" });
+        next({ status: 204, success: true, message: "No content" });
         return;
       }
 
@@ -89,7 +89,6 @@ exports.AddJob = async (req, res, next) => {
 exports.editJob = async (req, res, next) => {
   const { jobItemId, position, reward, detail, technology } = req.body;
   if (!jobItemId || !position || !reward || !detail || !technology) {
-    console.log(req.body);
     next({ status: 400, message: "Required field" });
     return;
   }

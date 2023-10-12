@@ -51,6 +51,15 @@ module.exports = {
           createdAt: "2023-09-29 17:18:32",
           updatedAt: "2023-09-29 17:18:32",
         },
+        {
+          companyId: 5,
+          position: "주방보조",
+          reward: 1000000,
+          detail: "저희 회사에서는 주방장를 모집하고있습니다.",
+          technology: "주방경력",
+          createdAt: "2023-09-29 17:18:32",
+          updatedAt: "2023-09-29 17:18:32",
+        },
       ],
       {}
     );

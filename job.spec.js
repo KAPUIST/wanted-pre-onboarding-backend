@@ -15,17 +15,11 @@ beforeAll(async () => {
       console.log(err);
     });
 });
-describe("Get JobItem Test", () => {
-  it("Get JobItem", async () => {
-    let res = await request(app)
-      .get("/api/v1/jobs")
-      .expect("Content-Type", "application/json; charset=utf-8");
-    expect(res.statusCode).toEqual(200);
-  });
-});
-describe("Post And Delete JobItem Test", () => {
+
+describe("CRUD JobItem Test", () => {
   let jobItemId;
-  it("Post JobItem", async () => {
+
+  it("Create JobItem", async () => {
     let payload = {
       companyId: 3,
       position: "주니어 프론트 개발자",
@@ -38,10 +32,34 @@ describe("Post And Delete JobItem Test", () => {
     expect(res.statusCode).toEqual(201);
     jobItemId = res.body.data.id;
   });
+  it("Get JobItem", async () => {
+    let res = await request(app)
+      .get("/api/v1/jobs")
+      .expect("Content-Type", "application/json; charset=utf-8");
+    expect(res.statusCode).toEqual(200);
+  });
+  it("Update JobItem", async () => {
+    let payload = {
+      jobItemId,
+      position: "시니어 개발자",
+      reward: 50000,
+      detail: "For Test Unit",
+      technology: "Spring",
+    };
+    let res = await request(app).put("/api/v1/job").send(payload);
+    expect(res.statusCode).toEqual(200);
+  });
 
   it("Delete JobItem", async () => {
     let res = await request(app).delete(`/api/v1/job/${jobItemId}`);
     expect(res.statusCode).toEqual(200);
+  });
+});
+describe("Get Job Item Detail", () => {
+  it("Get Detail Job", async () => {
+    let res = await request(app).get(`/api/v1/job/6`);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.anotherJobs).toHaveLength(1);
   });
 });
 
@@ -49,5 +67,7 @@ afterAll(async () => {
   /**
    * Closing Mysql.
    */
-  await sequelize.close();
+  await sequelize.close().then(() => {
+    console.log("Connection Closed");
+  });
 });
