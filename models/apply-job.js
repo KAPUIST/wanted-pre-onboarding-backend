@@ -14,10 +14,18 @@ const ApplyJob = sequelize.define(
     jobItemId: {
       type: Sequelize.INTEGER,
       allowNull: false,
+      validate: {
+        isInt: true,
+        notEmpty: true,
+      },
     },
     userId: {
       type: Sequelize.INTEGER,
       allowNull: false,
+      validate: {
+        isInt: true,
+        notEmpty: true,
+      },
     },
   },
   {

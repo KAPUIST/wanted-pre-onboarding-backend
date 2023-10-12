@@ -62,10 +62,7 @@ exports.getDetailJobs = async (req, res, next) => {
 };
 exports.addJob = async (req, res, next) => {
   const { companyId, position, reward, detail, technology } = req.body;
-  if (!companyId || !position || !reward || !detail || !technology) {
-    next({ status: 400, message: "Required field" });
-    return;
-  }
+
   await Job.create({
     companyId,
     position,
@@ -80,15 +77,19 @@ exports.addJob = async (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err.message);
-      next({ status: 400, message: "SERVER_ERROR" });
+      next(err);
     });
 };
 
 exports.editJob = async (req, res, next) => {
   const { jobItemId, position, reward, detail, technology } = req.body;
-  if (!jobItemId || !position || !reward || !detail || !technology) {
+
+  if (!jobItemId) {
     next({ status: 400, message: "Required field" });
+    return;
+  }
+  if (isNaN(Number(jobItemId))) {
+    next({ status: 400, message: "jobItemId must be number" });
     return;
   }
   await Job.update(
@@ -118,16 +119,17 @@ exports.editJob = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      next({ status: 400, message: "SERVER_ERROR" });
+      next(err);
     });
 };
 
 exports.deleteJob = async (req, res, next) => {
-  const jobItemId = req.params.jobItemId;
-  if (!jobItemId) {
-    next({ status: 400, message: "Required field" });
+  const jobItemId = Number(req.params.jobItemId);
+  if (isNaN(jobItemId)) {
+    next({ status: 400, message: "jobItemId must be number" });
     return;
   }
+
   await Job.destroy({ where: { id: jobItemId } })
     .then((result) => {
       if (result === 0) {
@@ -138,6 +140,6 @@ exports.deleteJob = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      next({ status: 400, message: "SERVER_ERROR" });
+      next(err);
     });
 };
